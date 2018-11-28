@@ -6,18 +6,19 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
   <style>
-    html, body, #map {
-      height: 100%;
-      margin: 0px;
-      padding: 0px
-    }
-  </style>
-
+  html, body, #map {
+    height: 100%;
+    margin: 0px;
+    padding: 0px
+  }
+</style>
+<!-- fetch the coordinates file -->
 <script type="text/javascript" src="coordinates.json"></script>
-  <script type='text/javascript' src='https://c0.wp.com/c/4.9.8/wp-includes/js/jquery/jquery.js'></script>
-  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;libraries=geometry"></script>
-  <script>
-    function initialize() {
+<script type='text/javascript' src='https://c0.wp.com/c/4.9.8/wp-includes/js/jquery/jquery.js'></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;libraries=geometry"></script>
+<script>
+  function initialize() {
+      // load the map and pass the coordinates that will be used for plotting
       var map = new google.maps.Map(document.getElementById("map"), {
         center: {lat: coordinates[0].lat, lng: coordinates[0].lng},
         zoom: 11,
@@ -26,10 +27,12 @@
       
       autoRefresh(map);
     }
+    // function to move marker to the current position
     function moveMarker(map, marker, latlng) {
       marker.setPosition(latlng);
       map.panTo(latlng);
     }
+    // function to autorefresh the map
     function autoRefresh(map) {
       var i, route, marker;
       
@@ -46,7 +49,8 @@
             url: "https://images.sendyit.com/web_platform/vendor_type/top/2.svg", // url
             scaledSize: new google.maps.Size(30, 30), // scaled size
           };
-      marker=new google.maps.Marker({map:map,icon:icon});
+          marker=new google.maps.Marker({map:map,icon:icon});
+      // loops through the coordinates as it plots having a delay of 5 seconds
       for (i = 0; i < coordinates.length; i++) {
         setTimeout(function (coords)
         {
@@ -60,8 +64,7 @@
   </script>
 </head>
 <body>
-  <!-- <div> -->
+  <!-- div that the map will be plotted on -->
   <div class="col-lg-12 col-md-6 col-sm-12" id="map"></div>
-  <!-- </div> -->
 </body>
 </html>
